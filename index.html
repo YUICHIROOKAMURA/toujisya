@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>支援における当事者性 実践リファレンス</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B2A38; --teal:#1E6E66; --amber:#B97D33; --cream:#F6F1E7; --rust:#9C4A3C;
+  --paper:#FFFDF8; --line:#E2D8C6; --muted:#55606B; --teal-soft:#E4EFEC; --amber-soft:#F5EAD9; --rust-soft:#F4E3DF;
+  --serif:'Noto Serif JP','Hiragino Mincho ProN','Yu Mincho',serif;
+  --sans:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',Meiryo,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{font-family:var(--sans);color:var(--navy);background:var(--cream);line-height:1.9;font-size:16px;-webkit-text-size-adjust:100%}
+.i{width:1.15em;height:1.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-0.2em;flex-shrink:0}
+a{color:var(--teal)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* ナビゲーション */
+.nav{position:sticky;top:0;z-index:50;background:var(--navy);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.nav-inner{display:flex;gap:4px;overflow-x:auto;padding:8px 12px;scrollbar-width:none;max-width:1000px;margin:0 auto}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav button{flex:0 0 auto;background:transparent;border:1px solid rgba(246,241,231,.25);color:var(--cream);font-family:var(--sans);font-size:13px;padding:5px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.nav button:hover,.nav button.on{background:var(--cream);color:var(--navy)}
+.progress{height:3px;background:rgba(246,241,231,.15)}
+.progress span{display:block;height:100%;width:0;background:var(--amber)}
+
+/* ヒーロー */
+.hero{background:var(--navy);color:var(--cream);padding:64px 24px 56px}
+.hero-inner{max-width:880px;margin:0 auto;display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+.hero h1{font-family:var(--serif);font-size:clamp(30px,5vw,46px);line-height:1.35;font-weight:700;letter-spacing:.02em}
+.hero .sub{font-family:var(--serif);font-size:18px;margin-top:10px;color:#D9CFBD}
+.hero .lead{margin-top:24px;font-size:15.5px;color:#E9E2D4;max-width:34em}
+.hero figure{text-align:center}
+.hero figcaption{font-size:13px;color:#CFC5B3;margin-top:10px}
+
+/* 本文 */
+main{max-width:760px;margin:0 auto;padding:0 20px 40px}
+section{padding:64px 0 24px;scroll-margin-top:64px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+h2{font-family:var(--serif);font-size:clamp(24px,3.6vw,30px);line-height:1.45;font-weight:700;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start}
+h2 .i{color:var(--teal);margin-top:.35em;width:1em;height:1em}
+h3{font-family:var(--serif);font-size:20px;font-weight:700;margin:36px 0 12px;line-height:1.5}
+p+p{margin-top:12px}
+.intro{font-size:16.5px;margin-bottom:24px}
+.note{font-size:14px;color:var(--muted);margin-top:10px}
+strong{font-weight:700}
+
+/* 確度バッジ */
+.badge{display:inline-flex;align-items:center;font-size:12px;font-weight:700;padding:2px 9px;border-radius:4px;margin:0 4px 0 0;vertical-align:2px;white-space:nowrap;letter-spacing:.03em}
+.b-high{background:var(--teal);color:#fff}
+.b-mid{background:var(--amber);color:#fff}
+.b-low{background:var(--rust);color:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:20px 0}
+
+/* ボックス */
+.box{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:22px 24px;margin:18px 0}
+.box.teal{border-left:5px solid var(--teal)}
+.box.amber{border-left:5px solid var(--amber);background:#FFFAF1}
+.box.rust{border-left:5px solid var(--rust);background:#FFF8F5}
+.box h4{font-size:16.5px;font-weight:700;margin-bottom:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.quote{font-family:var(--serif);font-size:18px;line-height:1.9;padding:22px 24px;border-left:4px solid var(--amber);background:var(--paper);margin:22px 0;border-radius:0 10px 10px 0}
+.ex{background:var(--amber-soft);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:15px}
+.ex b{color:#7A4F17}
+
+/* 可能性カード */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px}
+.card .i{color:var(--teal);width:26px;height:26px;margin-bottom:8px}
+.card h4{font-size:16px;margin-bottom:6px}
+.card p{font-size:14.5px}
+
+/* アコーディオン */
+.acc{border:1px solid var(--line);border-radius:10px;background:var(--paper);margin:12px 0;overflow:hidden}
+.acc>button{width:100%;text-align:left;background:none;border:none;padding:18px 20px;font-family:var(--serif);font-size:17.5px;font-weight:700;color:var(--navy);display:flex;gap:14px;align-items:center;cursor:pointer;line-height:1.5}
+.acc>button .num{flex:0 0 32px;height:32px;border-radius:50%;background:var(--navy);color:var(--cream);font-family:var(--sans);font-size:14px;display:grid;place-items:center}
+.acc>button .chev{margin-left:auto;transition:transform .25s}
+.acc.open>button .chev{transform:rotate(180deg)}
+.acc .body{display:none;padding:0 22px 22px}
+.acc.open .body{display:block}
+.acc .body h5{font-size:15px;color:var(--teal);margin:16px 0 4px}
+
+/* 2種類の開示 */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.duo>div{border-radius:10px;padding:18px;border:1px solid var(--line);background:var(--paper)}
+.duo .t{font-weight:700;margin-bottom:4px}
+.duo .say{font-family:var(--serif);background:var(--cream);padding:10px 12px;border-radius:6px;margin:8px 0;font-size:15px}
+.duo .res{font-size:14px}
+.up{color:var(--teal);font-weight:700}.down{color:var(--rust);font-weight:700}
+
+/* 開示前チェック */
+.check{background:var(--paper);border:2px solid var(--teal);border-radius:12px;padding:22px;margin:20px 0}
+.q{padding:14px 0;border-bottom:1px dashed var(--line)}
+.q:last-of-type{border-bottom:none}
+.q p{font-weight:500}
+.q .opts{display:flex;gap:8px;margin-top:8px}
+.q .opts button{font-family:var(--sans);font-size:14px;padding:6px 18px;border-radius:6px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer}
+.q .opts button.sel-yes{background:var(--teal);border-color:var(--teal);color:#fff}
+.q .opts button.sel-no{background:var(--rust);border-color:var(--rust);color:#fff}
+.result{margin-top:16px;padding:16px;border-radius:8px;background:var(--cream);font-size:15px;min-height:56px}
+.reset{font-family:var(--sans);font-size:13px;background:none;border:none;color:var(--teal);text-decoration:underline;cursor:pointer;margin-top:10px}
+
+/* 展開カード */
+.xcard{border:1px solid var(--line);border-radius:10px;background:var(--paper);margin:10px 0}
+.xcard>button{width:100%;background:none;border:none;text-align:left;padding:16px 18px;font-family:var(--sans);font-size:16px;font-weight:700;color:var(--navy);display:flex;gap:10px;align-items:center;cursor:pointer}
+.xcard>button .chev{margin-left:auto;transition:transform .25s}
+.xcard.open>button .chev{transform:rotate(180deg)}
+.xcard .body{display:none;padding:0 18px 18px;font-size:15px}
+.xcard.open .body{display:block}
+
+/* 表 */
+.tbl-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--navy);color:var(--cream);font-weight:700}
+td:first-child{font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+
+/* 年表 */
+.timeline{list-style:none;margin:16px 0;border-left:3px solid var(--teal);padding-left:20px}
+.timeline li{position:relative;padding:6px 0 12px}
+.timeline li::before{content:"";position:absolute;left:-28px;top:14px;width:13px;height:13px;border-radius:50%;background:var(--paper);border:3px solid var(--teal)}
+.timeline b{display:block;font-family:var(--serif)}
+
+/* 層の図（本質） */
+.layers{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px;margin:20px 0;text-align:center}
+.toggle{display:inline-flex;border:1px solid var(--navy);border-radius:999px;overflow:hidden;margin-bottom:12px}
+.toggle button{font-family:var(--sans);font-size:14px;padding:7px 18px;border:none;background:#fff;color:var(--navy);cursor:pointer}
+.toggle button.on{background:var(--navy);color:var(--cream)}
+.layers svg{display:block;margin:4px auto 0;max-width:360px;width:100%;height:auto}
+.layers .cap{font-size:15px;margin-top:8px;min-height:3.6em}
+
+/* 役割の線引き */
+.zones{display:grid;gap:12px;margin:18px 0}
+.zone{border-radius:10px;padding:18px 20px;border:1px solid var(--line);background:var(--paper)}
+.zone h4{display:flex;gap:8px;align-items:center;font-size:16.5px;margin-bottom:8px}
+.zone ul{padding-left:1.2em}
+.zone li{margin:4px 0;font-size:15px}
+.z1{border-top:5px solid var(--teal)}.z1 h4{color:var(--teal)}
+.z2{border-top:5px solid var(--amber)}.z2 h4{color:#8A5C1E}
+.z3{border-top:5px solid var(--rust)}.z3 h4{color:var(--rust)}
+
+/* スーパービジョン図 */
+.sv{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin:20px 0;text-align:center}
+.sv .node{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 10px}
+.sv .node.me{border:2px solid var(--teal)}
+.sv .node .i{width:28px;height:28px;color:var(--teal)}
+.sv .node b{display:block;margin-top:4px}
+.sv .node span{font-size:13px;color:var(--muted)}
+.sv .arr{color:var(--amber)}
+
+/* チェックリスト */
+.cl label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);margin:8px 0;cursor:pointer;font-size:15px}
+.cl input{margin-top:6px;width:18px;height:18px;accent-color:var(--teal);flex-shrink:0}
+.cl-count{font-size:14px;color:var(--muted);margin-top:6px}
+ul.plain{padding-left:1.3em}
+ul.plain li{margin:6px 0}
+
+/* まとめ（暗色） */
+.dark{background:var(--navy);color:var(--cream);margin:0 -20px;padding:64px 24px;border-radius:0}
+.dark h2,.dark h3,.dark h4,.dark p,.dark li,.dark strong{color:var(--cream)}
+.dark h2 .i{color:var(--amber)}
+.dark .dbox{border:1px solid rgba(246,241,231,.3);border-radius:10px;padding:20px 22px;margin:14px 0;background:rgba(246,241,231,.05)}
+.dark .final{font-family:var(--serif);font-size:19px;line-height:2;margin-top:28px;padding-top:24px;border-top:1px solid rgba(246,241,231,.3)}
+
+/* 出典 */
+.refs{list-style:none}
+.refs li{padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.refs li:last-child{border-bottom:none}
+.refs .k{display:inline-block;font-size:12px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-right:6px}
+.refs a{word-break:break-all}
+
+footer{background:var(--navy);color:var(--cream);text-align:center;padding:28px 20px;font-size:14px}
+
+.fade{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.fade.in{opacity:1;transform:none}
+
+@media (max-width:760px){
+  .hero{padding:44px 20px 40px}
+  .hero-inner{grid-template-columns:1fr;gap:24px}
+  .hero figure{max-width:280px;margin:0 auto}
+  .grid3,.duo{grid-template-columns:1fr}
+  .sv{grid-template-columns:1fr}
+  .sv .arr{transform:rotate(90deg);justify-self:center}
+  .box,.check{padding:18px}
+  .quote{font-size:16.5px;padding:18px}
+  .dark{margin:0 -20px;padding:48px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- アイコン定義（インラインSVG） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-ear" viewBox="0 0 24 24"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+  <symbol id="i-hands" viewBox="0 0 24 24"><path d="M11 12h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 14"/><path d="m7 18 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 13 6 6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+</svg>
+
+<nav class="nav" aria-label="目次">
+  <div class="nav-inner" id="navInner">
+    <button data-target="s-def">当事者性とは</button>
+    <button data-target="s-pos">可能性</button>
+    <button data-target="s-risk">5つの落とし穴</button>
+    <button data-target="s-research">自己開示の研究</button>
+    <button data-target="s-anyone">当事者でなくても</button>
+    <button data-target="s-peer">ピアサポート</button>
+    <button data-target="s-right">開示しない権利</button>
+    <button data-target="s-core">本質</button>
+    <button data-target="s-role">役割の線引き</button>
+    <button data-target="s-support">一人で抱え込まない</button>
+    <button data-target="s-limit">限界と論点</button>
+    <button data-target="s-sum">まとめ</button>
+    <button data-target="s-src">情報ソース</button>
+  </div>
+  <div class="progress"><span id="bar"></span></div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>支援における当事者性</h1>
+      <p class="sub">可能性と危険性、そして「自分の経験を語る」ということ｜実践リファレンス</p>
+      <p class="lead">「私も経験したから分かる」という言葉は、支援の現場で大きな力をもちます。同時に、その言葉には相手の語りを狭めてしまう危うさも含まれています。この資料は、当事者スタッフだけでなく、自分の職歴や人生経験を支援に持ち込むすべてのスタッフに向けて、経験の扱い方を整理したものです。</p>
+    </div>
+    <figure>
+      <svg viewBox="0 -4 260 204" role="img" aria-label="自分の経験が後ろから相手の語りを支えている図">
+        <circle cx="150" cy="95" r="78" fill="none" stroke="#B97D33" stroke-width="2.5" stroke-dasharray="5 6"/>
+        <text x="196" y="14" fill="#E3C79A" font-size="12" font-family="Noto Sans JP, sans-serif">自分の経験</text>
+        <circle cx="110" cy="110" r="66" fill="#1E6E66"/>
+        <text x="110" y="106" fill="#F6F1E7" font-size="15" text-anchor="middle" font-family="Noto Serif JP, serif" font-weight="700">相手の語り</text>
+        <text x="110" y="128" fill="#D3E6E2" font-size="11" text-anchor="middle" font-family="Noto Sans JP, sans-serif">支援の中心</text>
+      </svg>
+      <figcaption>経験は前に出すのではなく、後ろから支える</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main>
+
+<!-- 当事者性とは -->
+<section id="s-def" class="fade">
+  <h2><svg class="i"><use href="#i-users"/></svg>そもそも「当事者性」とは</h2>
+  <p class="intro">当事者性とは、困難や喪失、葛藤や挫折に直面した経験に根ざした理解のことです。特定の障害や疾患をもつ人だけのものではありません。</p>
+
+  <div class="box teal">
+    <h4><span class="badge b-mid">確度：中</span>誰もが、ニーズをもったときに当事者になる</h4>
+    <p>障害当事者運動から生まれた『当事者主権』（中西・上野, 2003）は、当事者を「ニーズをもった人」としてとらえ、人は誰でも当事者になりうるという考え方を示しました。支援者も専門家である前に一人の人間であり、当事者性を免れることはできません。</p>
+    <p class="note">この定義は広く参照される一方、「ニーズで当事者を定義できるのか」という批判的検討もあります。概念としての理解の出発点と考えてください。</p>
+  </div>
+
+  <div class="box">
+    <h4>問題は「もっていること」ではなく「扱い方」</h4>
+    <p>当事者性をもっていること自体が問題なのではありません。それを支援の場にどう持ち込むかが問われます。適切に扱えば相手を理解する資源になり、扱いを誤れば支援を歪める力になります。</p>
+  </div>
+
+  <div class="legend" aria-label="確度バッジの見方">
+    <span><span class="badge b-high">確度：高</span>系統的レビューや公的資料で確認できる</span>
+    <span><span class="badge b-mid">確度：中</span>複数の研究や臨床知見で支持されるが限界もある</span>
+    <span><span class="badge b-low">確度：低</span>単一研究・論考・実務上の目安にとどまる</span>
+  </div>
+  <p class="note">本資料の骨子は、当事者カウンセラーの臨床に関する論考をもとにしています。論考の主張は臨床的な考察であり、実証研究で直接検証されたものではない点に留意してください。</p>
+</section>
+
+<!-- 可能性 -->
+<section id="s-pos" class="fade">
+  <h2><svg class="i"><use href="#i-heart"/></svg>可能性：内側で静かに働く感受性</h2>
+  <p class="intro">当事者性が支援者の内側で働くとき、それは相手の言葉にならないつらさに近づくための手がかりになります。<span class="badge b-low">確度：低</span><span class="note">臨床的論考に基づく。直接検証した研究は限られる</span></p>
+  <div class="grid3">
+    <div class="card"><svg class="i"><use href="#i-ear"/></svg><h4>語りへの感受性</h4><p>言葉の選び方や間、わずかな表情の変化から、相手の内面で起きていることに気づきやすくなります。</p></div>
+    <div class="card"><svg class="i"><use href="#i-msg"/></svg><h4>言葉にならない苦痛への接近</h4><p>「うまく説明できない」という状態そのものを、自分の経験から想像できることがあります。</p></div>
+    <div class="card"><svg class="i"><use href="#i-heart"/></svg><h4>共感の源泉</h4><p>相手の体験を他人事ではなく、自分の内側で響くものとして受け止める力になります。</p></div>
+  </div>
+  <div class="box amber">
+    <h4>条件：内側で働いているときに限る</h4>
+    <p>これらの可能性は、当事者性が「理解のための感受性」として内側で働くときに生まれます。同じ経験が、外に出た瞬間に次の落とし穴へと変わりうることを、続けて見ていきます。</p>
+  </div>
+</section>
+
+<!-- 5つの落とし穴 -->
+<section id="s-risk" class="fade">
+  <h2><svg class="i"><use href="#i-alert"/></svg>危険性：5つの落とし穴</h2>
+  <p class="intro">当事者性が前に出すぎると、支援の枠組みが揺らぎ、相手に不利益が生じることがあります。番号は原論考で挙げられた順です。各項目を開くと詳細が表示されます。<span class="badge b-mid">確度：中</span><span class="note">境界・逆転移に関する臨床知見として広く共有されているが、量的な検証は限られる</span></p>
+
+  <div class="acc open">
+    <button aria-expanded="true"><span class="num">1</span>自分の体験を一般化してしまう<svg class="i chev"><use href="#i-chev"/></svg></button>
+    <div class="body">
+      <h5>何が起きるか</h5>
+      <p>自分が経験した苦痛や回復の過程が、他者にもそのまま当てはまるように感じてしまいます。「私はこうして乗り越えた」が、いつの間にか「あなたもこうすべき」に変わります。</p>
+      <h5>なぜ危険か</h5>
+      <p>同じ診断名や似た状況でも、本人の感じ方や必要な支援は異なります。一般化は相手の個別性を見えにくくし、共感のつもりの言葉が相手の体験を狭い枠に押し込めてしまいます。当事者性は共感の源泉であると同時に、理解を歪めるフィルターにもなります。</p>
+      <div class="ex"><b>例：</b>「私も就職活動で苦労したけど、とにかく数を受ければ道は開けるよ」。相手の課題が面接での強い不安や体調の波であれば、この助言は的を外します。</div>
+      <h5>どう扱うか</h5>
+      <p>自分の体験は「一つのケース」にすぎないと自覚し、「あなたの場合はどうですか」と相手の語りから理解を広げます。</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <button aria-expanded="false"><span class="num">2</span>支援関係の境界があいまいになる<svg class="i chev"><use href="#i-chev"/></svg></button>
+    <div class="body">
+      <h5>何が起きるか</h5>
+      <p>「同じ体験をした者同士」という意識が強まると、専門的な関係が仲間関係や友人関係に近づいていきます。</p>
+      <h5>なぜ危険か</h5>
+      <p>支援の場には、役割の非対称性が構造的に存在します。支援者は判断と責任を負う立場です。この非対称性が崩れると、支援者は保護者や友人、仲間のような位置に立ちやすくなり、必要な判断や介入をためらうようになります。</p>
+      <div class="ex"><b>例：</b>「私たち同じ立場だから分かり合えるよね」。一見温かい言葉ですが、相手は支援者に気を遣って「大丈夫です」と言いやすくなります。</div>
+      <h5>どう扱うか</h5>
+      <p>共感を示すときも、自分が今どの役割で関わっているのかを心の中で明確にしておきます（相手に向けて宣言する必要はありません）。</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <button aria-expanded="false"><span class="num">3</span>自己正当化の根拠として使ってしまう<svg class="i chev"><use href="#i-chev"/></svg></button>
+    <div class="body">
+      <h5>何が起きるか</h5>
+      <p>「当事者だから分かる」「経験しているから正しい」という姿勢が、同僚からの指摘や専門的な検討を遠ざけます。</p>
+      <h5>なぜ危険か</h5>
+      <p>どの支援者も判断を誤ることがあります。専門性には、自分の判断を検証し、他者のフィードバックを受け入れる姿勢が含まれます。当事者性が盾になると検証が止まり、支援が独善的になり、結果として相手の安全を損ないます。</p>
+      <div class="ex"><b>例：</b>「距離が近すぎない？」と言われて、「私は当事者だから、この人の気持ちは誰よりも分かる」と返してしまう。</div>
+      <h5>どう扱うか</h5>
+      <p>「経験しているからこそ見えなくなっているものがあるかもしれない」という前提に立ち、スーパービジョンや同僚の視点を積極的に求めます。</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <button aria-expanded="false"><span class="num">4</span>当事者性を外に向けて示してしまう<svg class="i chev"><use href="#i-chev"/></svg></button>
+    <div class="body">
+      <h5>何が起きるか</h5>
+      <p>自分の体験を前面に出して専門性を主張したり、広告や自己紹介、集客の材料にしたりします。</p>
+      <h5>なぜ危険か</h5>
+      <p>相手が「同じ体験がないと分かってもらえない」と感じたり、支援者に気を遣って本音を言えなくなったりします。支援の質が当事者性の有無で判断される、という誤った基準も広がります。そして何より、支援者の体験が場の中心になり、相手の体験が後ろに退きます。</p>
+      <div class="ex"><b>例：</b>初回面談で「私も昔うつ病だったので、気持ちは分かります」。相手は「同じ経験をしたのに頑張れない自分」を見せにくくなるかもしれません。</div>
+      <h5>どう扱うか</h5>
+      <p>支援の質は、知識・技術・倫理的姿勢によって担保されるものです。開示するとしても、目的を確かめたうえで慎重に行います（「自己開示の研究」「開示しない権利」の節も参照）。</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <button aria-expanded="false"><span class="num">5</span>自分の揺れや傷つきが、そのまま支援に影響する<svg class="i chev"><use href="#i-chev"/></svg></button>
+    <div class="body">
+      <h5>何が起きるか</h5>
+      <p>まだ整理できていないテーマに触れる相手に出会うと、強い感情が動きます。その結果、過剰な介入、過度な同一化、あるいは逆に距離を取りすぎるといった形で関係が不安定になります。</p>
+      <h5>なぜ危険か</h5>
+      <p>これは「逆転移」と呼ばれる現象と重なります。逆転移は、狭義には支援者自身の過去の関係や未整理の感情が目の前の相手に向かって動くことを指し、広義には支援者に生じる感情反応全般を指す場合もあります。感情が動くこと自体は避けられません。問題になるのは、それに気づかないまま行動に移してしまうことです。</p>
+      <div class="ex"><b>例：</b>家族関係で苦しんだ経験をもつ支援者が、似た状況の利用者に「この人を何とかしなければ」と強く感じ、本人のペースを超えて関わってしまう。</div>
+      <h5>どう扱うか</h5>
+      <p>「この反応は相手のためか、自分の感情か」を観察し、強く揺れたときは相談します。扱いきれないテーマについて、担当の調整を相談することも専門性の一部です。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 自己開示の研究 -->
+<section id="s-research" class="fade">
+  <h2><svg class="i"><use href="#i-flask"/></svg>自己開示の研究からわかること</h2>
+  <p class="intro">「自分の経験を話すべきか」は、心理療法の研究でも長く議論されてきました。研究は「開示は良い／悪い」という単純な答えを出していません。</p>
+
+  <h3>2種類の開示を区別する</h3>
+  <div class="duo">
+    <div>
+      <p class="t">今ここでの気持ちを伝える<br><span class="note">Self-involving</span></p>
+      <p class="say">「今のお話を聞いて、私は胸が痛くなりました」</p>
+      <p class="res">相手との関係の中で、支援者に今起きている反応を伝える開示です。</p>
+    </div>
+    <div>
+      <p class="t">自分の過去の体験を語る<br><span class="note">Self-disclosing</span></p>
+      <p class="say">「私も前の職場で、同じように悩んだことがあります」</p>
+      <p class="res">支援者自身の個人的な経験や事実を伝える開示です。当事者性の開示はこちらに含まれます。</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <h4><span class="badge b-low">確度：低</span>国内の実験研究（田中・廣瀬, 2013）</h4>
+    <p>大学生・大学院生208名が、カウンセラーが開示する場面の逐語を読み、印象を評価しました。今ここでの気持ちを伝える開示は、カウンセラーの専門性の評価を介して、読み手の自己開示への意欲を<span class="up">高めました</span>。過去の体験を語る開示は、好意感を<span class="up">高めた</span>一方、信頼感を<span class="down">抑制</span>しました。</p>
+    <p class="note">限界：単一の研究であり、実際の支援関係ではなく逐語を読んで評価する実験です。長期的な影響を示したものではありません。</p>
+  </div>
+
+  <div class="box">
+    <h4><span class="badge b-mid">確度：中</span>実際の心理療法の研究（Hill, Knox, &amp; Pinto-Coelho, 2018）</h4>
+    <p>実際の心理療法を扱った21件の研究をまとめた質的メタ分析では、支援者の自己開示の後には、関係の深まり、相手の心理的な機能の改善、気づきの獲得など、肯定的なプロセスが続くことが多いと報告されています。一方で、裏目に出る場合があることも指摘され、慎重に用いるための推奨がまとめられています。</p>
+    <p class="note">なお、自己開示は支援者の介入全体の3.5%程度と、まれにしか使われないことも報告されています（Hill &amp; Knox, 2002）。</p>
+  </div>
+
+  <div class="box rust">
+    <h4>日本の現場に当てはめるときの注意</h4>
+    <p>カウンセラーの自己開示の効果は社会的背景や文化の影響を受けることが指摘されており、日本での研究は海外ほど多くありません。海外の知見をそのまま当てはめず、目の前の相手の反応を確かめながら使うことが求められます。</p>
+  </div>
+
+  <div class="quote">研究から言えるのは、開示の良し悪しではなく、「何を、誰のために、どれくらい話すか」が問われているということです。</div>
+</section>
+
+<!-- 当事者でなくても -->
+<section id="s-anyone" class="fade">
+  <h2><svg class="i"><use href="#i-brief"/></svg>当事者でなくても：自分の経験を語るとき</h2>
+  <p class="intro">ここまでの話は、当事者スタッフだけのものではありません。誰もが何かの当事者である以上、職歴、就職活動、転職、子育て、病気以外の挫折など、あらゆる経験に同じ構造の落とし穴があります。就労移行支援では、とくに「働いた経験」を語る場面が多くなります。<span class="badge b-low">確度：低</span><span class="note">上記の研究知見と臨床的論考を現場に当てはめた整理</span></p>
+
+  <div class="xcard open">
+    <button aria-expanded="true"><svg class="i"><use href="#i-brief"/></svg>職歴や成功体験を一般化する<svg class="i chev"><use href="#i-chev"/></svg></button>
+    <div class="body">
+      <div class="ex"><b>例：</b>「私が新卒のころは何十社も受けたよ」「最初の3年は我慢するものだよ」</div>
+      <p>支援者自身の働き方や時代の常識が、無意識に「普通」の基準になります。支援関係には非対称性があるため、何気ない体験談も「正解」として受け取られやすくなります。落とし穴1と同じ構造です。</p>
+    </div>
+  </div>
+
+  <div class="xcard">
+    <button aria-expanded="false"><svg class="i"><use href="#i-scale"/></svg>似た経験で、相手の困りごとを小さく見積もる<svg class="i chev"><use href="#i-chev"/></svg></button>
+    <div class="body">
+      <div class="ex"><b>例：</b>「私も忘れっぽいから分かる」「緊張するのはみんな同じだよ」</div>
+      <p>似ているが違う経験を同じものとして扱うと、困りごとの程度や頻度、生活への影響の違いが見えなくなります。相手は「分かってもらえなかった」と感じやすく、これは当事者スタッフにはない、非当事者ならではの落とし穴です。安心させるつもりの一言が、相手の訴えを打ち消してしまうことがあります。</p>
+    </div>
+  </div>
+
+  <div class="xcard">
+    <button aria-expanded="false"><svg class="i"><use href="#i-shield"/></svg>経験年数を根拠にする<svg class="i chev"><use href="#i-chev"/></svg></button>
+    <div class="body">
+      <div class="ex"><b>例：</b>「この仕事を10年やっているから分かる」</div>
+      <p>落とし穴3の「当事者だから分かる」と同じ働きをします。経験は大切な資源ですが、検証を止める理由にはなりません。</p>
+    </div>
+  </div>
+
+  <div class="xcard">
+    <button aria-expanded="false"><svg class="i"><use href="#i-heart"/></svg>善意の「乗り越えた話」<svg class="i chev"><use href="#i-chev"/></svg></button>
+    <div class="body">
+      <div class="ex"><b>例：</b>「私も前の職場ではつらかったけど、乗り越えたら強くなれたよ」</div>
+      <p>励ましのつもりでも、「乗り越えられない自分はだめだ」という圧力として届くことがあります。回復の道筋やペースは人によって違います。</p>
+    </div>
+  </div>
+
+  <h3>開示する前の4つの問い</h3>
+  <p>当事者性の開示でも、職歴の話でも使えます。順に答えてみてください。<span class="badge b-mid">確度：中</span><span class="note">自己開示研究の推奨と臨床知見をもとにした整理</span></p>
+  <div class="check" id="disclosureCheck">
+    <div class="q" data-key="who"><p>1. この話は、相手のためですか（自分が話したい・分かってほしい、ではなく）</p><div class="opts"><button data-v="yes">はい</button><button data-v="no">いいえ</button></div></div>
+    <div class="q" data-key="now"><p>2. 今の相手に、この話が必要なタイミングですか</p><div class="opts"><button data-v="yes">はい</button><button data-v="no">いいえ</button></div></div>
+    <div class="q" data-key="brief"><p>3. 短く話し、すぐに相手の話に焦点を戻せますか</p><div class="opts"><button data-v="yes">はい</button><button data-v="no">いいえ</button></div></div>
+    <div class="q" data-key="settled"><p>4. その経験は、自分の中である程度整理できていますか</p><div class="opts"><button data-v="yes">はい</button><button data-v="no">いいえ</button></div></div>
+    <div class="result" id="checkResult" aria-live="polite">4つの問いに答えると、ここに目安が表示されます。</div>
+    <button class="reset" id="checkReset">回答をリセット</button>
+  </div>
+</section>
+
+<!-- ピアサポート -->
+<section id="s-peer" class="fade">
+  <h2><svg class="i"><use href="#i-hands"/></svg>ピアサポート：有効性と専門的支援との違い</h2>
+  <p class="intro">ピアサポートとは、障害や病気の経験をもつ人が、その経験を生かしながら他の障害や病気のある人を支援することです。当事者性の「もう一つの生かし方」として、制度上の位置づけが強まっています。</p>
+
+  <h3>制度の動き <span class="badge b-high">確度：高</span></h3>
+  <ul class="timeline">
+    <li><b>令和3年度（2021）報酬改定</b>自立生活援助・計画相談支援・障害児相談支援・地域移行支援・地域定着支援に「ピアサポート体制加算」、就労継続支援B型に「ピアサポート実施加算」が創設されました。</li>
+    <li><b>令和6年度（2024）報酬改定</b>ピアサポート実施加算の対象に自立訓練と共同生活援助が追加され、共同生活援助に「退去後ピアサポート実施加算」が創設されました。</li>
+    <li><b>算定の要件</b>障害者ピアサポート研修（基礎研修・専門研修）を修了した障害者と、管理者等の配置などが求められます。</li>
+  </ul>
+  <p class="note">就労移行支援は、いずれの加算の対象にも含まれていません（令和6年度改定時点）。制度は改定で変わりうるため、最新の情報を確認してください。</p>
+
+  <h3>効果の研究</h3>
+  <div class="box">
+    <h4><span class="badge b-high">確度：高</span>重い精神疾患では、効果を判断できる質の根拠がまだない</h4>
+    <p>統合失調症などの重い精神疾患を対象としたコクランレビュー（Chien et al., 2019：ランダム化比較試験13件・計2,479名）は、ピアサポートの効果を支持または否定できる質の高いエビデンスは現時点で存在しないと結論づけています。</p>
+  </div>
+  <div class="box">
+    <h4><span class="badge b-mid">確度：中</span>回復の実感には小さな効果、症状への効果は見込みにくい</h4>
+    <p>精神保健サービスにおける1対1のピアサポートのメタ分析（White et al., 2020）では、本人が評価するリカバリーやエンパワメントに小さな改善が見られる可能性がある一方、臨床的な指標の改善は見込みにくいとされました。グループ型のメタ分析（BMC Psychiatry, 2021）でも、全体的なリカバリーの小さな改善にとどまっています。</p>
+  </div>
+  <div class="box amber">
+    <h4>読み方</h4>
+    <p>「回復の実感」「希望」「つながり」といった心理社会的な側面には小さな効果が示唆される一方、症状を改善する根拠は乏しく、研究の質もまだ十分ではありません。期待しすぎず、軽んじもしない距離感が妥当だと考えられます。</p>
+  </div>
+
+  <h3>ピアサポートと専門的支援の違い</h3>
+  <p class="note">スマートフォンでは、表を横にスクロールできます。</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>ピアサポート</th><th>専門的支援（カウンセリング等）</th></tr></thead>
+      <tbody>
+        <tr><td>関係性</td><td>対等性を志向<small>「仲間として」。ただし雇用されたピアスタッフは事業所の一員でもある</small></td><td>役割の非対称性がある<small>「支援者と利用者」</small></td></tr>
+        <tr><td>主な機能</td><td>体験の共有、希望のモデル<small>回復の道筋を自分の経験で示す</small></td><td>アセスメント、計画的な支援<small>専門知識と技法に基づく</small></td></tr>
+        <tr><td>当事者性の位置</td><td>目的をもった開示が役割の一部<small>体験の共有を意図的に使う（無制限ではない）</small></td><td>背景に保持する<small>内側で働く感受性として</small></td></tr>
+        <tr><td>境界</td><td>ピアスタッフにも境界は必要<small>距離の近さと役割の両立が課題になりやすい</small></td><td>明確な枠組みが必要<small>役割と専門的距離の保持</small></td></tr>
+        <tr><td>リスク</td><td>別の形のリスクがある<small>役割のあいまいさ、境界の揺れ、自分の体験が刺激される負担</small></td><td>本資料の5つの落とし穴<small>経験が場の中心になる危うさ</small></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box">
+    <h4><span class="badge b-mid">確度：中</span>ピアスタッフも、役割の間で揺れている</h4>
+    <p>ピアスタッフを対象とした実証研究では、「友人」「専門職」「職員」「経験による専門家」という4つの役割が見いだされ、友人的な役割から専門職的な役割への移行が役割葛藤を生むことがあると報告されています。ピアサポートは「境界が要らない支援」ではなく、「境界の引き方が異なる支援」と考えるのが適切です。</p>
+  </div>
+
+  <h3>当事者スタッフにとっての意味</h3>
+  <ul class="plain">
+    <li><strong>ピアサポートの文脈では</strong>、体験を共有すること自体が役割の中心になります。ただし、ピアスタッフの養成研修でも境界（バウンダリー）は重要な学習テーマとされており、「何のために、どこまで話すか」を選ぶ点は専門的支援と共通です。</li>
+    <li><strong>専門的支援の文脈では</strong>、当事者性は内側で働く感受性として背景に保持し、役割を明確にします。</li>
+    <li><strong>同じ人でも場面で役割が変わります。</strong>「今はどちらの文脈か」を意識し続けることが、当事者スタッフの専門性の一部です。</li>
+    <li><strong>当事者性の有無で、支援者の優劣は決まりません。</strong>当事者スタッフと非当事者スタッフは、それぞれ異なる視点をもち寄る協働の関係です。</li>
+  </ul>
+</section>
+
+<!-- 開示しない権利 -->
+<section id="s-right" class="fade">
+  <h2><svg class="i"><use href="#i-lock"/></svg>当事者スタッフの「開示しない権利」</h2>
+  <p class="intro">当事者性を生かすことが注目されるほど、「当事者なのだから話してほしい」という期待が、本人の意思を超えて向けられる危険があります。開示は本人の選択であり、組織や同僚が求めるものではありません。<span class="badge b-mid">確度：中</span><span class="note">ピアスタッフの質的研究と倫理的判断に基づく</span></p>
+
+  <div class="box teal">
+    <h4>本人が決めること</h4>
+    <ul class="plain">
+      <li>開示するかどうか、どこまで、誰に話すか</li>
+      <li>一度話した後でも、範囲を変えたり、話すのをやめたりすること</li>
+      <li>当事者であることに関わる担当やテーマを引き受けるかどうか（本人と相談して決める）</li>
+    </ul>
+  </div>
+  <div class="box rust">
+    <h4>組織と同僚がしないこと</h4>
+    <ul class="plain">
+      <li>加算の算定、広報、採用活動、「当事者がいる事業所」というアピールのために開示を求めない</li>
+      <li>同僚が知っている情報を、本人の同意なく利用者や外部に伝えない</li>
+      <li>当事者であることを理由に、特定の利用者やテーマの担当を固定しない</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h4>研究から</h4>
+    <p>ピアスタッフのウェルビーイングに関する質的研究の統合では、障害や病気の経験を継続的に開示すること、自分の体験が刺激されることが、仕事の負担に関わるテーマとして挙げられています。一方で、役割が理解され支えられている環境では、支援する役割がウェルビーイングにも良い影響をもちうるとされています。</p>
+  </div>
+</section>
+
+<!-- 本質 -->
+<section id="s-core" class="fade">
+  <h2><svg class="i"><use href="#i-layers"/></svg>本質：専門的支援では、背景に保持する</h2>
+  <p class="intro">ピアサポートでは、体験の共有を目的をもって用いることが役割の一部でした。専門的支援者として関わる場合、当事者性は「生かす」ものというよりも「適切に抱え続ける」ものになります。下の切り替えで、二つの状態を比べてみてください。</p>
+
+  <div class="layers">
+    <div class="toggle" role="group" aria-label="経験の位置を切り替える">
+      <button id="lyFront">経験を前面に出す</button>
+      <button id="lyBack" class="on">経験を背景に置く</button>
+    </div>
+    <svg viewBox="0 0 300 200" aria-hidden="true">
+      <g id="lyGroupBack">
+        <circle id="cExp" cx="175" cy="100" r="74" fill="none" stroke="#B97D33" stroke-width="2.5" stroke-dasharray="5 6"/>
+        <text id="tExp" x="222" y="20" fill="#8A5C1E" font-size="12" font-family="Noto Sans JP, sans-serif">自分の経験</text>
+      </g>
+      <g id="lyGroupFront">
+        <circle id="cOther" cx="125" cy="110" r="64" fill="#1E6E66"/>
+        <text x="125" y="114" fill="#F6F1E7" font-size="15" text-anchor="middle" font-family="Noto Serif JP, serif" font-weight="700">相手の語り</text>
+      </g>
+    </svg>
+    <p class="cap" id="lyCap">支援者の経験は後ろから相手の語りを支え、場の中心には相手の体験があります。</p>
+  </div>
+
+  <div class="quote">当事者性を否定せず、しかし利用もせず、前面にも出さず、専門的枠組みの中に静かに置き続ける。そこでは「自分は自分であり、他者は他者である」という線引きを保つことが欠かせません。</div>
+  <p class="note">原論考の主張を要約したものです。</p>
+</section>
+
+<!-- 役割の線引き -->
+<section id="s-role" class="fade">
+  <h2><svg class="i"><use href="#i-compass"/></svg>役割の線引き：自分で対応すること、相談すること</h2>
+  <p class="intro">当事者性や個人的な経験が関わる場面で、支援スタッフが担えることと、上長・心理職・サービス管理責任者と相談して進めることの目安です。事業所の手順や緊急時の対応マニュアルがある場合は、そちらを優先してください。</p>
+  <div class="zones">
+    <div class="zone z1">
+      <h4><svg class="i"><use href="#i-check"/></svg>スタッフが担えること</h4>
+      <ul>
+        <li>話を聴き、気持ちを受け止める</li>
+        <li>就職活動や職場での困りごとを一緒に整理する</li>
+        <li>4つの問いを確かめたうえで、短く自分の経験を共有する</li>
+        <li>気づいたことを記録し、チームに共有する</li>
+      </ul>
+    </div>
+    <div class="zone z2">
+      <h4><svg class="i"><use href="#i-help"/></svg>上長・心理職・サビ管と相談して進めること</h4>
+      <ul>
+        <li>利用者が過去のつらい体験を詳しく語り始めたとき</li>
+        <li>支援者自身の未整理のテーマに触れ、動揺が続くとき</li>
+        <li>個人的な連絡先や時間外の対応など、境界をめぐる要求があったとき</li>
+        <li>支援者への強い依存や恋愛感情がうかがえるとき</li>
+        <li>体調や症状の変化、服薬に関わる相談（主治医などとの連携を検討）</li>
+      </ul>
+    </div>
+    <div class="zone z3">
+      <h4><svg class="i"><use href="#i-alert"/></svg>その場で共有し、手順に沿って対応すること</h4>
+      <ul>
+        <li>死にたい気持ちや、自分を傷つける行為をほのめかしたとき：一人で判断せず、すぐに上長・心理職に共有し、事業所の緊急時対応の手順に従う</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 一人で抱え込まない -->
+<section id="s-support" class="fade">
+  <h2><svg class="i"><use href="#i-users"/></svg>一人で抱え込まない仕組み</h2>
+  <p class="intro">自分の当事者性や経験が支援にどう影響しているかを、自分一人で客観的に見ることは困難です。だからこそ、第三者の視点が入る場が欠かせません。原論考は、この点検の仕組みがなければ当事者性は独善や暴走に転じやすいと述べています。</p>
+
+  <div class="sv">
+    <div class="node"><svg class="i"><use href="#i-user"/></svg><b>スーパーバイザー・同僚</b><span>第三者の視点</span></div>
+    <div class="arr"><svg class="i"><use href="#i-arrow"/></svg></div>
+    <div class="node me"><svg class="i"><use href="#i-user"/></svg><b>あなた</b><span>経験と役割をもつ</span></div>
+    <div class="arr"><svg class="i"><use href="#i-arrow"/></svg></div>
+    <div class="node"><svg class="i"><use href="#i-users"/></svg><b>利用者</b><span>固有の体験とニーズ</span></div>
+  </div>
+  <p class="note">第三者は利用者と直接関わるのではなく、あなたを通して支援の質を支えます。</p>
+
+  <h3>個人の点検チェックリスト</h3>
+  <p>日々の振り返りに使ってください。チェックは保存されません。</p>
+  <div class="cl" id="selfCheck">
+    <label><input type="checkbox">自分の体験と相手の体験を混同していない（「私の場合」が「あなたも」になっていない）</label>
+    <label><input type="checkbox">今どの役割で関わっているかを意識できている</label>
+    <label><input type="checkbox">「経験があるから分かる」を理由に、同僚の指摘を退けていない</label>
+    <label><input type="checkbox">自己開示が目的化していない（4つの問いを確かめている）</label>
+    <label><input type="checkbox">強い感情が動いたとき、相手のためか自分のためかを立ち止まって考えている</label>
+    <label><input type="checkbox">定期的に第三者の視点を取り入れている</label>
+  </div>
+  <p class="cl-count" id="clCount">0 / 6 項目</p>
+
+  <div class="box amber">
+    <h4><span class="badge b-low">確度：低</span>早めに相談したいサインの目安</h4>
+    <p>特定の利用者のことが頭から離れない、支援後に強い疲労感や空虚感が続く、自分の過去のつらい体験が繰り返し思い出される。こうした状態は、早めに上長・心理職・スーパーバイザーへ相談するきっかけにしてください。診断のための基準ではありません。</p>
+  </div>
+
+  <h3>組織としての取り組み</h3>
+  <ul class="plain">
+    <li><strong>ケース会議：</strong>複数のスタッフで検討し、一人の視点に偏らないようにする</li>
+    <li><strong>外部のスーパービジョン：</strong>組織内だけでなく、外部の専門家の視点を取り入れる機会をもつ</li>
+    <li><strong>研修：</strong>当事者性と自己開示について、全スタッフが理解を共有する機会を定期的にもつ</li>
+    <li><strong>採用と配置：</strong>当事者性を採用の要件にしない。当事者スタッフの負担が偏らないよう配慮する</li>
+    <li><strong>セルフケアの体制：</strong>当事者スタッフは自身の体験と支援が重なりやすいため、休息や相談の機会を確保する</li>
+  </ul>
+</section>
+
+<!-- 限界と論点 -->
+<section id="s-limit" class="fade">
+  <h2><svg class="i"><use href="#i-scale"/></svg>限界と論点</h2>
+  <p class="intro">この資料の考え方にも限界と、立場による異論があります。</p>
+  <div class="box rust">
+    <h4>原論考は臨床的な考察であり、実証研究ではない</h4>
+    <p>5つの落とし穴や「背景に保持する」という考え方は、臨床経験に基づく論考です。広く共有された臨床知見と重なる一方、効果を数量的に検証したものではありません。</p>
+  </div>
+  <div class="box rust">
+    <h4>「専門的枠組み」そのものへの批判</h4>
+    <p>当事者という概念は、専門家主義への対抗を掲げた障害当事者運動の中で広まりました。「当事者性を専門的枠組みの中に置く」という考え方は、使い方によっては、当事者の声を再び専門家の判断の下に置くことにもなりえます。専門性と当事者性の緊張関係は、どちらかを正解にするのではなく、持ち続ける問いとして扱う必要があります。</p>
+  </div>
+  <div class="box rust">
+    <h4>研究の偏りと文化差</h4>
+    <p>自己開示やピアサポートの研究は海外のものが中心で、実験的な研究や質的研究も多く含まれます。日本の就労支援の現場にそのまま当てはまるとは限りません。</p>
+  </div>
+  <div class="box rust">
+    <h4>制度情報は時点に依存する</h4>
+    <p>加算などの制度情報は令和6年度改定時点のものです。改定のたびに確認が必要です。</p>
+  </div>
+</section>
+
+<!-- まとめ -->
+<section id="s-sum" class="dark fade">
+  <h2><svg class="i"><use href="#i-key"/></svg>まとめ：専門性の核心</h2>
+  <div class="dbox">
+    <h4>経験は、持つことではなく扱い方が問われる</h4>
+    <p>当事者性は共感と理解を深める資源であると同時に、境界を壊し、関係を歪める力にもなります。危険は当事者であることそのものではなく、専門性と切り離して扱うこと、免罪符として無制限に持ち込むことにあります。</p>
+  </div>
+  <div class="dbox">
+    <h4>当事者でなくても、同じことが言える</h4>
+    <p>職歴、成功体験、経験年数も、相手の語りを狭める力をもちえます。「何を、誰のために、どれくらい話すか」は、すべてのスタッフに共通する問いです。</p>
+  </div>
+  <div class="dbox">
+    <h4>文脈によって扱い方が変わる</h4>
+    <p>ピアサポートでは体験の共有を目的をもって用い、専門的支援では背景に保持する。どちらの場合も境界は必要で、開示するかどうかは本人が決めます。</p>
+  </div>
+  <p class="final">専門性とは、知識や技法だけでなく、自身の当事者性を扱う力そのものを含んでいる。その緊張関係を一人で抱え込まず、引き受け続けることが、最も困難で、最も臨床的な営みだと考えられます。</p>
+</section>
+
+<!-- 情報ソース -->
+<section id="s-src" class="fade">
+  <h2><svg class="i"><use href="#i-book"/></svg>情報ソース</h2>
+  <ul class="refs">
+    <li><span class="k">当事者概念</span>中西正司・上野千鶴子『当事者主権』岩波新書, 2003（増補新版 2024）<br><a href="https://www.hanmoto.com/bd/isbn/9784004320425" target="_blank" rel="noopener">https://www.hanmoto.com/bd/isbn/9784004320425</a></li>
+    <li><span class="k">当事者概念</span>上野千鶴子による「当事者」定義の批判的検討を含む論考（立命館大学リポジトリ）<br><a href="https://ritsumei.repo.nii.ac.jp/record/5666/files/ce12_shirata.pdf" target="_blank" rel="noopener">https://ritsumei.repo.nii.ac.jp/record/5666/files/ce12_shirata.pdf</a></li>
+    <li><span class="k">自己開示</span>田中健史朗・廣瀬幸市 (2013). カウンセラーのSelf-involving, Self-disclosingが被開示者の印象評価と自己開示に与える影響. 愛知教育大学教育臨床総合センター紀要, 4, 17-24.<br><a href="https://aue.repo.nii.ac.jp/record/4166/files/rinsho41724.pdf" target="_blank" rel="noopener">https://aue.repo.nii.ac.jp/record/4166/files/rinsho41724.pdf</a></li>
+    <li><span class="k">自己開示</span>Hill, C. E., Knox, S., &amp; Pinto-Coelho, K. G. (2018). Therapist self-disclosure and immediacy: A qualitative meta-analysis. Psychotherapy, 55(4), 445-460.<br><a href="https://epublications.marquette.edu/psych_fac/441" target="_blank" rel="noopener">https://epublications.marquette.edu/psych_fac/441</a></li>
+    <li><span class="k">自己開示</span>Pinto-Coelho, K. G. (2014). Characterizing therapist self-disclosure in psychodynamic psychotherapy（修士論文。Hill &amp; Knox, 2002 の頻度データを引用）<br><a href="https://api.drum.lib.umd.edu/server/api/core/bitstreams/eee9b9fb-a04e-4ba8-a639-1f8b5b17f409/content" target="_blank" rel="noopener">University of Maryland リポジトリ</a></li>
+    <li><span class="k">自己開示</span>田中健史朗『カウンセラーの自己開示：迷える援助者のための羅針盤』創元社, 2025<br><a href="https://ndlsearch.ndl.go.jp/books/R100000002-I034265367" target="_blank" rel="noopener">https://ndlsearch.ndl.go.jp/books/R100000002-I034265367</a></li>
+    <li><span class="k">ピアサポート</span>Chien, W. T., et al. (2019). Peer support for people with schizophrenia or other serious mental illness. Cochrane Database of Systematic Reviews, CD010880.<br><a href="https://doi.org/10.1002/14651858.CD010880.pub2" target="_blank" rel="noopener">https://doi.org/10.1002/14651858.CD010880.pub2</a></li>
+    <li><span class="k">ピアサポート</span>国立精神・神経医療研究センター「こころの情報サイト」ピアサポート（上記レビューの日本語紹介）<br><a href="https://cocokura.ncnp.go.jp/no-category/technique-ps/" target="_blank" rel="noopener">https://cocokura.ncnp.go.jp/no-category/technique-ps/</a></li>
+    <li><span class="k">ピアサポート</span>White, S., et al. (2020). The effectiveness of one-to-one peer support in mental health services: a systematic review and meta-analysis. BMC Psychiatry, 20, 534.<br><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7657356" target="_blank" rel="noopener">https://pmc.ncbi.nlm.nih.gov/articles/PMC7657356</a></li>
+    <li><span class="k">ピアサポート</span>A systematic review and meta-analysis of group peer support interventions for people experiencing mental health conditions. BMC Psychiatry (2021), 21, 315.<br><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8220835" target="_blank" rel="noopener">https://pmc.ncbi.nlm.nih.gov/articles/PMC8220835</a></li>
+    <li><span class="k">ピアスタッフ</span>ピアスタッフの4つの役割に関する実証研究（Psychiatric Services）<br><a href="https://psychiatryonline.org/doi/10.1176/appi.ps.202100566" target="_blank" rel="noopener">https://psychiatryonline.org/doi/10.1176/appi.ps.202100566</a></li>
+    <li><span class="k">ピアスタッフ</span>Supporting peer support workers: a qualitative meta-synthesis of influences on peer support worker wellbeing（Cardiff University）<br><a href="https://orca.cardiff.ac.uk/id/eprint/188453/" target="_blank" rel="noopener">https://orca.cardiff.ac.uk/id/eprint/188453/</a></li>
+    <li><span class="k">制度</span>兵庫県「令和6年度障害者ピアサポート研修事業 研修の参加にあたっての留意事項」（加算の経緯と要件）<br><a href="https://web.pref.hyogo.lg.jp/kf08/documents/r6peer_jizen1_kanrisya_peer2.pdf" target="_blank" rel="noopener">https://web.pref.hyogo.lg.jp/kf08/documents/r6peer_jizen1_kanrisya_peer2.pdf</a></li>
+    <li><span class="k">制度</span>堺市「大阪府障がい者ピアサポート研修の実施について」<br><a href="https://www.city.sakai.lg.jp/kenko/fukushikaigo/shogaifukushi/jigyousya/info/etc/75463020221212130551262.html" target="_blank" rel="noopener">https://www.city.sakai.lg.jp/kenko/fukushikaigo/shogaifukushi/jigyousya/info/etc/75463020221212130551262.html</a></li>
+    <li><span class="k">制度</span>厚生労働省 障害者ピアサポート研修 専門研修テキスト（障害統合版 vol.1）<br><a href="https://www.mhlw.go.jp/content/000998788.pdf" target="_blank" rel="noopener">https://www.mhlw.go.jp/content/000998788.pdf</a></li>
+    <li><span class="k">参考図書</span>東畑開人『居るのはつらいよ：ケアとセラピーについての覚書』医学書院, 2019（ケアとセラピーの違い、支援の場に「居る」ことの意味）</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>岡村雄一郎</footer>
+
+<script>
+(function(){
+  // ナビゲーション
+  function scrollToSection(id){
+    var el=document.getElementById(id);
+    if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
+  }
+  var navBtns=document.querySelectorAll('.nav button[data-target]');
+  navBtns.forEach(function(b){
+    b.addEventListener('click',function(){scrollToSection(b.getAttribute('data-target'));});
+  });
+
+  // 進捗バーと現在地
+  var bar=document.getElementById('bar');
+  var secs=Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+    var cur=null;
+    secs.forEach(function(s){ if(s.getBoundingClientRect().top<120){cur=s.id;} });
+    navBtns.forEach(function(b){
+      var on=b.getAttribute('data-target')===cur;
+      b.classList.toggle('on',on);
+      if(on && b.scrollIntoView && window.__lastNav!==cur){
+        var inner=document.getElementById('navInner');
+        inner.scrollLeft=b.offsetLeft-inner.clientWidth/2+b.clientWidth/2;
+        window.__lastNav=cur;
+      }
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+
+  // フェードイン
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fades=document.querySelectorAll('.fade');
+  if(reduce||!('IntersectionObserver' in window)){
+    fades.forEach(function(f){f.classList.add('in');});
+  }else{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} });
+    },{threshold:0.06});
+    fades.forEach(function(f){io.observe(f);});
+  }
+
+  // アコーディオンと展開カード
+  document.querySelectorAll('.acc>button, .xcard>button').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var box=btn.parentElement;
+      var open=box.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
+
+  // 開示前の4つの問い
+  var answers={};
+  var advice={
+    who:'「自分が話したい」気持ちに気づけたこと自体が大切です。その気持ちは、記録やスーパービジョンで扱いましょう。',
+    now:'今は相手の話を聴くことを優先し、必要になったときに改めて考えましょう。',
+    brief:'長くなりそうな話は、場の中心を自分に移してしまいます。一言で伝えられる形を考えるか、今回は控えましょう。',
+    settled:'整理できていない経験は、話すうちに自分が揺れやすくなります。開示は控え、上長や心理職に相談しましょう。'
+  };
+  var qs=document.querySelectorAll('#disclosureCheck .q');
+  var res=document.getElementById('checkResult');
+  function render(){
+    var keys=Object.keys(answers);
+    if(keys.length<qs.length){
+      res.textContent='あと'+(qs.length-keys.length)+'つの問いに答えると、目安が表示されます。';
+      return;
+    }
+    var noKeys=keys.filter(function(k){return answers[k]==='no';});
+    if(noKeys.length===0){
+      res.innerHTML='<strong>開示を検討してよい状態です。</strong>短く話し、「あなたの場合はどうですか」と相手に焦点を戻しましょう。話した後の相手の反応も確かめてください。';
+    }else{
+      var html='<strong>今回は開示を控えるのが無難です。</strong><ul class="plain" style="margin-top:6px">';
+      noKeys.forEach(function(k){html+='<li>'+advice[k]+'</li>';});
+      res.innerHTML=html+'</ul>';
+    }
+  }
+  qs.forEach(function(q){
+    q.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        var v=b.getAttribute('data-v');
+        answers[q.getAttribute('data-key')]=v;
+        q.querySelectorAll('button').forEach(function(x){x.classList.remove('sel-yes','sel-no');x.setAttribute('aria-pressed','false');});
+        b.classList.add(v==='yes'?'sel-yes':'sel-no');
+        b.setAttribute('aria-pressed','true');
+        render();
+      });
+    });
+  });
+  document.getElementById('checkReset').addEventListener('click',function(){
+    answers={};
+    qs.forEach(function(q){q.querySelectorAll('button').forEach(function(x){x.classList.remove('sel-yes','sel-no');x.setAttribute('aria-pressed','false');});});
+    res.textContent='4つの問いに答えると、ここに目安が表示されます。';
+  });
+
+  // 層の切り替え
+  var svg=document.querySelector('.layers svg');
+  var gBack=document.getElementById('lyGroupBack');
+  var gFront=document.getElementById('lyGroupFront');
+  var cExp=document.getElementById('cExp');
+  var cap=document.getElementById('lyCap');
+  var bF=document.getElementById('lyFront'), bB=document.getElementById('lyBack');
+  function setLayer(front){
+    if(front){
+      svg.appendChild(gBack);
+      cExp.setAttribute('fill','#B97D33');cExp.setAttribute('stroke-dasharray','0');
+      cap.textContent='支援者の経験が手前に来ると、相手の語りの多くが覆い隠されます。場の中心が支援者に移った状態です。';
+    }else{
+      svg.appendChild(gFront);
+      cExp.setAttribute('fill','none');cExp.setAttribute('stroke-dasharray','5 6');
+      cap.textContent='支援者の経験は後ろから相手の語りを支え、場の中心には相手の体験があります。';
+    }
+    bF.classList.toggle('on',front); bB.classList.toggle('on',!front);
+  }
+  bF.addEventListener('click',function(){setLayer(true);});
+  bB.addEventListener('click',function(){setLayer(false);});
+
+  // 点検チェックリスト
+  var boxes=document.querySelectorAll('#selfCheck input');
+  var cnt=document.getElementById('clCount');
+  boxes.forEach(function(x){x.addEventListener('change',function(){
+    var n=Array.prototype.filter.call(boxes,function(y){return y.checked;}).length;
+    cnt.textContent=n+' / '+boxes.length+' 項目';
+  });});
+})();
+</script>
+</body>
+</html>
